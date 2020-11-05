@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,8 +9,9 @@ namespace ConsoleApp17
 {
     public class Cat
     {
-
+      
         byte _hungryStatus;
+        public event EventHandler HungryStatusChanged;
         public Cat(string name, DateTime birthday)
 
         {
@@ -35,23 +37,35 @@ namespace ConsoleApp17
         {
             return (DateTime.Today - BirthDay).Days / 365;
         }
+       
         public byte HungryStatus
         {
             get { return _hungryStatus; }
             set
             {
-                if (value < 0)
+                byte status = value;
+                if (status < 0)
                 {
-                    _hungryStatus = 0;
+                    status = 0;
                 }
-                else if (value > 100)
+                else if (status > 100)
                 {
-                    _hungryStatus = 100;
+                    status = 100;
                 }
                 else
                     _hungryStatus = value;
+                if (_hungryStatus != value)
+                {
+                    HungryStatusChanged?.Invoke(this, null);
+                }
+                
             }
         }
+        public void Feed()
+        {
+            HungryStatus = 100;
+        }
+
         public void GetStatus()
         {
             Console.WriteLine(Name);
@@ -86,12 +100,13 @@ namespace ConsoleApp17
 
         async Task LifeCircle()
         {
+            
             await Task.Delay(10000);
             HungryStatus -= 10;
-            GetStatus();
             await LifeCircle();
-
+          
         }
+
 
 
     }
