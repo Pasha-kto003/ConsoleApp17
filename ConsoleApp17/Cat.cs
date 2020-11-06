@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp17
 {
+
     public class Cat
     {
-      
+
         byte _hungryStatus;
         public event EventHandler HungryStatusChanged;
         public Cat(string name, DateTime birthday)
@@ -37,7 +38,7 @@ namespace ConsoleApp17
         {
             return (DateTime.Today - BirthDay).Days / 365;
         }
-       
+
         public byte HungryStatus
         {
             get { return _hungryStatus; }
@@ -58,15 +59,16 @@ namespace ConsoleApp17
                 {
                     HungryStatusChanged?.Invoke(this, null);
                 }
-                
+
             }
         }
-        public void Feed()
+        public void Feed(byte needFood)
         {
-            HungryStatus = 100;
+            HungryStatus += needFood;
         }
 
         public void GetStatus()
+
         {
             Console.WriteLine(Name);
             Console.WriteLine($"Возраст: {GetAge()}");
@@ -100,11 +102,11 @@ namespace ConsoleApp17
 
         async Task LifeCircle()
         {
-            
-            await Task.Delay(10000);
+
+            await Task.Delay(100);
             HungryStatus -= 10;
             await LifeCircle();
-          
+
         }
 
 
