@@ -24,6 +24,8 @@ namespace ConsoleApp17
             CatSmartHouse catSmartH = new CatSmartHouse(900);
             catSmartH.AddCat(c);
             catSmartH.AddCat(ct);
+          
+            Console.SetCursorPosition(0, catSmartH.CatsCount + 1);
             Console.ReadLine();
         }
 

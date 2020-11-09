@@ -11,7 +11,7 @@ namespace ConsoleApp17
     public class Cat
     {
 
-        byte _hungryStatus;
+        int _hungryStatus;
         public event EventHandler HungryStatusChanged;
         public Cat(string name, DateTime birthday)
 
@@ -28,7 +28,7 @@ namespace ConsoleApp17
         }
         public void MakeNoise()
         {
-            Console.WriteLine($"{Name } мяукает");
+            Console.WriteLine($"{Name} мяукает");
         }
         public DateTime BirthDay
         {
@@ -39,65 +39,79 @@ namespace ConsoleApp17
             return (DateTime.Today - BirthDay).Days / 365;
         }
 
-        public byte HungryStatus
+        public int HungryStatus
         {
-            get { return _hungryStatus; }
+            
             set
             {
-                byte status = value;
-                if (status < 0)
+                int newStatus = 0;
+                if (value < 0)
                 {
-                    status = 0;
+                    newStatus = 0;
                 }
-                else if (status > 100)
+                else if (value > 100)
                 {
-                    status = 100;
+                    newStatus = value;
+                }
+                if (newStatus != _hungryStatus)
+                {
+                    _hungryStatus = newStatus;
+                    HungryStatusChanged?.Invoke(this, null);
+
                 }
                 else
-                    _hungryStatus = value;
-                if (_hungryStatus != value)
-                {
-                    HungryStatusChanged?.Invoke(this, null);
-                }
+                    _hungryStatus = 0;
+                
 
             }
+            get { return _hungryStatus; }
         }
         public void Feed(byte needFood)
         {
             HungryStatus += needFood;
         }
 
-        public void GetStatus()
+        public string GetStatus(string color)
 
         {
-            Console.WriteLine(Name);
-            Console.WriteLine($"Возраст: {GetAge()}");
+           // Console.WriteLine(Name);
+            //Console.WriteLine($"Возраст: {GetAge()}");
+            
+            
             if (HungryStatus <= 10)
             {
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("Кошка умирает от голода");
+               color = Convert.ToString(Convert.ToInt32(Console.ForegroundColor = ConsoleColor.DarkRed));
+                //Console.WriteLine("Кошка умирает от голода");
             }
             else if (HungryStatus > 10 && HungryStatus <= 40)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Кошка очень голодна");
+                color = Convert.ToString(Convert.ToInt32(Console.ForegroundColor = ConsoleColor.Red));
+               // Console.WriteLine("Кошка очень голодна");
             }
             else if (HungryStatus > 40 && HungryStatus <= 70)
             {
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.WriteLine("Кошка хочет кушать");
+                color = Convert.ToString(Convert.ToInt32(Console.ForegroundColor = ConsoleColor.DarkYellow));
+               // Console.WriteLine("Кошка хочет кушать");
             }
             else if (HungryStatus > 40 && HungryStatus <= 70)
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Кошка не против перекусить");
+                color = Convert.ToString(Convert.ToInt32(Console.ForegroundColor = ConsoleColor.Yellow));
+              //  Console.WriteLine("Кошка не против перекусить");
             }
             else if (HungryStatus > 90)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Кошка недавно поела");
+                color = Convert.ToString(Convert.ToInt32(Console.ForegroundColor = ConsoleColor.Green));
+               // Console.WriteLine("Кошка недавно поела");
             }
-            Console.ResetColor();
+            string name = Name;
+            string age = Convert.ToString(GetAge());
+            string status = Convert.ToString(HungryStatus);
+            string getstatus = $"{color}, {name} {age} {status}";
+            return getstatus;
+            // ну или можно так: return color, name, age, status;
+
+            
+            
         }
 
         async Task LifeCircle()
