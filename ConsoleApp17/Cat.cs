@@ -10,7 +10,10 @@ namespace ConsoleApp17
 
     public class Cat
     {
-
+        public int a = 10;
+        public int b = 40;
+        public int c = 70;
+        public int d = 90;
         int _hungryStatus;
         public event EventHandler HungryStatusChanged;
         public Cat(string name, DateTime birthday)
@@ -74,31 +77,31 @@ namespace ConsoleApp17
         public string GetStatus(string color)
 
         {
-           // Console.WriteLine(Name);
+            // Console.WriteLine(Name);
             //Console.WriteLine($"Возраст: {GetAge()}");
             
             
-            if (HungryStatus <= 10)
+            if (HungryStatus <= a)
             {
                color = Convert.ToString(Convert.ToInt32(Console.ForegroundColor = ConsoleColor.DarkRed));
                 //Console.WriteLine("Кошка умирает от голода");
             }
-            else if (HungryStatus > 10 && HungryStatus <= 40)
+            else if (HungryStatus > a && HungryStatus <= b)
             {
                 color = Convert.ToString(Convert.ToInt32(Console.ForegroundColor = ConsoleColor.Red));
                // Console.WriteLine("Кошка очень голодна");
             }
-            else if (HungryStatus > 40 && HungryStatus <= 70)
+            else if (HungryStatus > b && HungryStatus <= c)
             {
                 color = Convert.ToString(Convert.ToInt32(Console.ForegroundColor = ConsoleColor.DarkYellow));
                // Console.WriteLine("Кошка хочет кушать");
             }
-            else if (HungryStatus > 40 && HungryStatus <= 70)
+            else if (HungryStatus > c && HungryStatus <= d)
             {
                 color = Convert.ToString(Convert.ToInt32(Console.ForegroundColor = ConsoleColor.Yellow));
               //  Console.WriteLine("Кошка не против перекусить");
             }
-            else if (HungryStatus > 90)
+            else if (HungryStatus > d)
             {
                 color = Convert.ToString(Convert.ToInt32(Console.ForegroundColor = ConsoleColor.Green));
                // Console.WriteLine("Кошка недавно поела");
