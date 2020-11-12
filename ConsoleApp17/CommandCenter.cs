@@ -8,44 +8,40 @@ namespace ConsoleApp17
 {
     class CommandCenter
     {
+        
 
         public CommandCenter(CatSmartHouse catSmartHouse)
         {
             CatSmartHouse = catSmartHouse;
-            WaitCommand();
+            WaitCommand(CatSmartHouse);
         }
-
-        private void WaitCommand()
-        {
-
-        }
-
         public CatSmartHouse CatSmartHouse
         { get; set; }
 
+        
 
-        public void WaitCommand(Cat cat)
+        private void WaitCommand(CatSmartHouse catSmartHouse)
         {
 
             string command = "";
             while (command != "exit")
             {
-                Console.SetCursorPosition(0, CatSmartHouse.CatsCount + 1);
+                Console.SetCursorPosition(0, CatSmartHouse.CatsCount + 2);
                 command = Console.ReadLine();
                 string[] array = command.Split();
                 if (array[0] == "store")
                 {
                     int smth = Convert.ToInt32(array[2]);
                     CatSmartHouse.FoodResourse += smth;
-
+                    Console.Write(array[1]);
                 }
 
-                if (command == "cls")
+                if (array[0] == "cls")
                 {
                     for (int i = 5; i < 10; i++)
                     {
                         Console.SetCursorPosition(0, i);
-                        for (int j = 0; j < 50; j++)
+                        for (int j = 0; j < 100; j++)
                         {
                             Console.Write(' ');
                         }
@@ -55,23 +51,18 @@ namespace ConsoleApp17
                 {
                     Console.WriteLine("Добавить еды в вольер: store название еды количество еды");
                     Console.WriteLine("Очистить консоль: cls");
-                    Console.WriteLine("Измкеит границу голода: ChangeHungryLimit на сколько");
+                    Console.WriteLine("Изменить границу голода: ChangeHungryLimit +/- на сколько");
+                    Console.WriteLine("Выход: exit");
                 }
-                if (command == "ChangeHungryLimit")
+                if (array[0] == "ChangeHungryLimit+++")
                 {
                     if (array[1] == "+")
                     {
-                        cat.a -= Convert.ToInt32(array[2]);
-                        cat.b -= Convert.ToInt32(array[2]);
-                        cat.c -= Convert.ToInt32(array[2]);
-                        cat.d -= Convert.ToInt32(array[2]);
+                        catSmartHouse.hangryLimit -= Convert.ToInt32(array[2]);
                     }
                     else if (array[1] == "-")
                     {
-                        cat.a += Convert.ToInt32(array[2]);
-                        cat.b += Convert.ToInt32(array[2]);
-                        cat.c += Convert.ToInt32(array[2]);
-                        cat.d += Convert.ToInt32(array[2]);
+                        catSmartHouse.hangryLimit += Convert.ToInt32(array[2]);
                     }
                 }
             }

@@ -11,6 +11,7 @@ namespace ConsoleApp17
 
         static void Main(string[] args)
         {
+            
             Cat c = new Cat("Vladik", new DateTime(2010, 05, 25));
             c.MakeNoise();
             Console.WriteLine($"Кошке по имени {c.Name} уже {c.GetAge()} лет");
@@ -26,6 +27,8 @@ namespace ConsoleApp17
             catSmartH.AddCat(ct);
           
             Console.SetCursorPosition(0, catSmartH.CatsCount + 1);
+
+            CommandCenter command = new CommandCenter(catSmartH);
             Console.ReadLine();
         }
 

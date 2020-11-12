@@ -14,7 +14,7 @@ namespace ConsoleApp17
         public int b = 40;
         public int c = 70;
         public int d = 90;
-        int _hungryStatus;
+        sbyte _hungryStatus;
         public event EventHandler HungryStatusChanged;
         public Cat(string name, DateTime birthday)
 
@@ -42,34 +42,32 @@ namespace ConsoleApp17
             return (DateTime.Today - BirthDay).Days / 365;
         }
 
-        public int HungryStatus
+        public sbyte HungryStatus
         {
-            
+             get { return _hungryStatus; }
             set
             {
-                int newStatus = 0;
-                if (value < 0)
+                sbyte status = value;
+                if (status < 0)
                 {
-                    newStatus = 0;
+                    status = 0;
                 }
-                else if (value > 100)
+                else if (status > 100)
                 {
-                    newStatus = value;
-                }
-                if (newStatus != _hungryStatus)
-                {
-                    _hungryStatus = newStatus;
-                    HungryStatusChanged?.Invoke(this, null);
-
+                    status = 100;
                 }
                 else
-                    _hungryStatus = 0;
-                
+                    _hungryStatus = value;
+                if (_hungryStatus < status)
+                {
+                    HungryStatusChanged?.Invoke(this, null);
+                }
+                _hungryStatus = status;
 
             }
-            get { return _hungryStatus; }
+           
         }
-        public void Feed(byte needFood)
+        public void Feed(sbyte needFood)
         {
             HungryStatus += needFood;
         }
